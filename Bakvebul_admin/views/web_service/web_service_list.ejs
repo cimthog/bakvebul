@@ -1,0 +1,59 @@
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('breadcrumb') %>
+
+<div class="col-sm-6">
+    <h4 class="page-title">Web Service</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Bakvebul</a></li>
+        <li class="breadcrumb-item active">Web Service</li>
+    </ol>
+</div>
+<%- contentFor('body') %>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title mb-4">Web Services</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="width: 5%;">Sno</th>
+                            <th scope="col" style="width: 30%;">Web Service Title</th>
+                            <th scope="col" style="width: 50%;">Web Service Description</th>
+                            <th scope="col" style="width: 5%;">Email Service</th>
+                            <th scope="col" style="width: 5%;">Notification Service</th>
+                            <th scope="col" style="width: 5%;">Sms Service</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>signUp</td>
+                                <td>Api for user signup</td>
+                                <td><center><span class="badge badge-success" style="font-size: 20px;">&#10004;</span></center></td>
+                                <td><center><span class="badge badge-danger" style="font-size: 20px;">&#10008;</span></center></td>
+                                <td><center><span class="badge badge-danger" style="font-size: 20px;">&#10008;</span></center></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>signIn</td>
+                                <td>Api for user signin</td>
+                                <td><center><span class="badge badge-danger" style="font-size: 20px;">&#10008;</span></center></td>
+                                <td><center><span class="badge badge-danger" style="font-size: 20px;">&#10008;</span></center></td>
+                                <td><center><span class="badge badge-danger" style="font-size: 20px;">&#10008;</span></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/js/app.js"></script>
+
+<%- contentFor('BottomJs') %>

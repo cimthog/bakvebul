@@ -1,0 +1,92 @@
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('breadcrumb') %>
+
+<div class="col-sm-6">
+    <h4 class="page-title">Payout</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Bakvebul</a></li>
+        <li class="breadcrumb-item"><a href="/Customer">Users</a></li>
+        <li class="breadcrumb-item active">Payout</li>
+    </ol>
+</div>
+
+<%- contentFor('body') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                    <%- include('customer_partial') %>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane p-3 active">
+                        <div class="row">
+                            <h4 style="margin-left: 5px;margin-bottom: 5px;">Balance Histroy</h4>
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="datatable_list" class="datatable_list table table-bordered table-hover" style="width: 100%">
+                                        <thead class="">
+                                            <tr>
+                                                <th>Sno</th>
+                                                <th> Invoice Id</th>
+                                                <th> Job Id </th>
+                                                <th> Customer Name</th>
+                                                <th> Customer Email Id </th>
+                                                <th> Invoice Amt</th>
+                                                <th> Comm. Rate</th>
+                                                <th> Comm. Amt</th>
+                                                <th> Old Balance</th>
+                                                <th> New Balance </th>
+                                                <th> Payment Type</th>
+                                                <th> Statement Type</th>
+                                                <th> Date & Time</th>
+                                                <!-- <th> Status </th>
+                                                <th> Actions </th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(resultBalanceHistroy){ %>
+                                                <% resultBalanceHistroy.forEach(function(item,i){ %>
+                                                    <tr>
+                                                        <td><%= i+1 %></td>
+                                                        <td><%= item.invoice_id%></a></td>
+                                                        <td><%= item.job_id%></td>
+                                                        <td><%= item.name%></td>
+                                                        <td><%= item.email_id%></td>
+                                                        <td><%= item.currency_symbol %><%= item.invoice_amt%></td>
+                                                        <td><%= item.comm_rate%> %</td>
+                                                        <td><%= item.currency_symbol %><%= item.comm_amt%></td>
+                                                        <td><%= item.currency_symbol %><%= item.old_balance%></td>
+                                                        <td><%= item.currency_symbol %><%= item.new_balance%></td>
+                                                        <% if (item.payment_type == 0) { %>
+                                                        <td>  <button class="btn btn-info btn-sm">Online</button></td>
+                                                        <%} else { %>
+                                                        <td>  <button class="btn btn-warning btn-sm">Cash</button></td>
+                                                        <% } %>
+                                                        <% if (item.statement_type == 0) { %>
+                                                        <td>  <button class="btn btn-info btn-sm">Credit</button></td>
+                                                        <%} else { %>
+                                                        <td>  <button class="btn btn-warning btn-sm">Debit</button></td>
+                                                        <% } %>
+                                                        <td><%= moment(item.created_at).format('DD MMM YYYY HH:MM')%></td>
+                                                    </tr>
+                                                <% }) %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/js/app.js"></script>
+
+<%- contentFor('BottomJs') %>

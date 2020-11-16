@@ -1,0 +1,142 @@
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('breadcrumb') %>
+
+<div class="col-sm-6">
+    <h4 class="page-title">Payout</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Bakvebul</a></li>
+        <li class="breadcrumb-item"><a href="/Customer">Users</a></li>
+        <li class="breadcrumb-item active">Payout</li>
+    </ol>
+</div>
+
+<%- contentFor('body') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                    <%- include('customer_partial') %>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane p-3 active">
+                        <div class="row">
+                            <div class="col-12">
+                                <form data-toggle="validator" id="customer_payout_add" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <input type="hidden" name="user_pub_id" id="user_pub_id" value="<%= user %>">
+                                        <div class="form-group col-sm-4">
+                                            <label for="title" class="col-form-label">Title</label>
+                                            <input class="form-control" type="text" placeholder="Enter Title" id="title" name="title" required/>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="description" class="col-form-label">Description</label>
+                                            <input class="form-control" type="text" placeholder="Description" required
+                                                id="description" name="description"/>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="currency_id" class="col-form-label">Currency</label>
+                                            <select class="form-control" name="currency_id" id="currency_id" required onchange="getUserBalance()">
+                                                <option value="">- - - Please Select Currency - - -</option>
+                                                <% if(resultUserCurrentBal == null || resultUserCurrentBal == [] || resultUserCurrentBal == '' || resultUserCurrentBal == undefined){ %>
+                                                <% }else{%>
+                                                    <% resultUserCurrentBal.forEach(function(row){ %>
+                                                        <option value="<%= row.currency_id %>" data-amt="<%= row.user_current_balance %>"><%= row.currency_name %></option>
+                                                    <% }); %>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="payment_type" class="col-form-label">Payment Type</label>
+                                            <select class="form-control" name="payment_type" id="payment_type" required>
+                                                <option value="">- - - Please Select Payment Type - - -</option>
+                                                <option value="0">Online</option>
+                                                <option value="1">Cash</option>
+                                            </select>
+                                        </div>
+                                        <div id="getUserBalanceInputBox" class="form-group col-sm-4">
+                                            <label for="amount" class="col-form-label">Amount</label>
+                                            <input class="form-control" type="text" placeholder="amount" required
+                                                value="" data-amt=""
+                                                id="payout_amount" name="amount" oninput="calRemainingAmt()"/>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="remaining_balance" class="col-form-label">Remaining Balance</label>
+                                            <input class="form-control" type="text" placeholder="Remaining Balance" required
+                                                id="payout_remaining_balance" name="remaining_balance" readonly value="0"/>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="reference_id" class="col-form-label">Reference Id</label>
+                                            <input class="form-control" type="text" placeholder="Reference Id" required
+                                                id="reference_id" name="reference_id"/>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <label for="image" class="col-form-label">Image</label>
+                                            <input class="" type="file" id="image" name="image"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+                                        <button type="reset" class="btn btn-danger waves-effect waves-light">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 style="margin-left: 5px;margin-bottom: 5px;">Payout Histroy</h4>
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="datatable_list" class="datatable_list table table-bordered table-hover" style="width: 100%">
+                                        <thead class="">
+                                            <tr>
+                                                <th>Sno</th>
+                                                <th> Title</th>
+                                                <th> Description </th>
+                                                <th> image</th>
+                                                <th> Amount </th>
+                                                <th> Remaining Balance</th>
+                                                <th> Reference Id</th>
+                                                <th> Payment Type</th>
+                                                <th> Date & Time</th>
+                                                <!-- <th> Status </th>
+                                                <th> Actions </th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if(resultUserPayout){ %>
+                                                <% resultUserPayout.forEach(function(item,i){ %>
+                                                    <tr>
+                                                        <td><%= i+1 %></td>
+                                                        <td><%= item.title%></a></td>
+                                                        <td><%= item.description%></td>
+                                                        <td></td>
+                                                        <td><%= item.currency_symbol %><%= item.amount%></td>
+                                                        <td><%= item.currency_symbol %><%= item.remaining_balance%></td>
+                                                        <td><%= item.reference_id%></td>
+                                                        <% if (item.payment_type == 0) { %>
+                                                        <td>  <button class="btn btn-info btn-sm">Online</button></td>
+                                                        <%} else { %>
+                                                        <td>  <button class="btn btn-warning btn-sm">Cash</button></td>
+                                                        <% } %>
+                                                        <td><%= item.datetime%></td>
+                                                    </tr>
+                                                <% }) %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/js/app.js"></script>
+
+<%- contentFor('BottomJs') %>

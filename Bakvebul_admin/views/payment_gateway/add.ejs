@@ -1,0 +1,62 @@
+<%- contentFor('HeaderCss') %>
+
+<%- contentFor('breadcrumb') %>
+
+<div class="col-sm-6">
+    <h4 class="page-title">Payment Gateway</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Bakvebul</a></li>
+        <li class="breadcrumb-item active">Payment Gateway</li>
+    </ol>
+</div>
+<%- contentFor('body') %>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form data-toggle="validator" id="payment_gateway_add_form">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="title" class="col-form-label">Title</label>
+                            <select name="title" id="payment_gateway_title" class="form-control" required onchange="showAuthKeyField()">
+                                <option value="">Please Select Payment Gateway</option>
+                                <option value="weepay">weepay</option>
+                                <!-- <option value="Paytab">Paytab</option>
+                                <option value="Razorpay">Razorpay</option>
+                                <option value="Paypal">Paypal</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="description" class="col-form-label">Description</label>
+                            <input class="form-control" type="text" placeholder="Description" required
+                                id="description" name="description"/>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="currency" class="col-form-label">Currency</label>
+                            <select name="currency" id="currency" class="form-control" multiple style="height: 70px;">
+                                <!-- <option value=""></option> -->
+                                <% if(currency == null || currency == []){ %>
+                                <% }else{%>
+                                    <% currency.forEach(function(row){ %>
+                                        <option value="<%= row.id %>"><%= row.currency_name %></option>
+                                    <% }); %>
+                                <%}%>
+                            </select>
+                        </div>
+                        <div class="row" id="showApiKeysField" style="width: 100%;margin-left: 0px;">
+                         
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+<%- contentFor('FooterJs') %>
+
+<%- contentFor('BottomJs') %>
